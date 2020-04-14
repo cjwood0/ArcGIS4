@@ -16,13 +16,14 @@
       require([
         "esri/Map",
         "esri/views/MapView",
-        "esri/layers/WebTileLayer"
-      ], function(Map, MapView, WebTileLayer) {
+        "esri/layers/WebTileLayer",
+        "esri/layers/support/TileInfo"
+      ], function(Map, MapView, WebTileLayer, TileInfo) {
 
         var lods = [
       {
         "level": 0,
-        "scale": 20,
+        "scale": 20, // scale = resolution * 2000
         "resolution": 0.12656893354349544,
         "startTileRow": 0,
         "endTileRow": 34,
@@ -240,6 +241,7 @@
           container: MAP_VIEW,
           map,
           zoom: 6,
+          constraints: {lods},
           center: [-84.51602935791, 39.095413208008]
         });
 
