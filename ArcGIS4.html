@@ -19,7 +19,197 @@
         "esri/layers/WebTileLayer"
       ], function(Map, MapView, WebTileLayer) {
 
-        var tileInfo = {
+        var lods = [
+      {
+        "level": 0,
+        "scale": 20,
+        "resolution": 0.12656893354349544,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 1,
+        "scale": 19,
+        "resolution": 0.06328446677174772,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 2,
+        "scale": 18,
+        "resolution": 0.04218964451449848,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 3,
+        "scale": 17,
+        "resolution": 0.03164223338587386,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 4,
+        "scale": 16,
+        "resolution": 0.025313786708699087,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 5,
+        "scale": 15,
+        "resolution": 0.02109482225724924,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 6,
+        "scale": 14,
+        "resolution": 0.018081276220499348,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 7,
+        "scale": 13,
+        "resolution": 0.01582111669293693,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 8,
+        "scale": 12,
+        "resolution": 0.014063214838166159,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 9,
+        "scale": 11,
+        "resolution": 0.012656893354349543,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 10,
+        "scale": 10,
+        "resolution": 0.011506266685772313,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 11,
+        "scale": 9,
+        "resolution": 0.01054741112862462,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 12,
+        "scale": 8,
+        "resolution": 0.00973607181103811,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 13,
+        "scale": 7,
+        "resolution": 0.009040638110249674,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 14,
+        "scale": 6,
+        "resolution": 0.008437928902899695,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 15,
+        "scale": 5,
+        "resolution": 0.007910558346468465,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 16,
+        "scale": 4,
+        "resolution": 0.007445231384911496,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 17,
+        "scale": 3,
+        "resolution": 0.0070316074190830795,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 18,
+        "scale": 2,
+        "resolution": 0.006661522818078708,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      },
+      {
+        "level": 19,
+        "scale": 1,
+        "resolution": 0.006328446677174772,
+        "startTileRow": 0,
+        "endTileRow": 34,
+        "startTileCol": 0,
+        "endTileCol": 19
+      }
+    ];
+
+
+    
+        var tileSizes = [];
+        for(let i = 64; i <= 1280; i+=64 ) {
+          tileSizes.push(i)
+        }
+
+        var tileInfos = tileSizes.map(t => ({
           dpi: 96,
           format: "jpg",
           origin: {
@@ -28,43 +218,16 @@
             y: 4735513.9020680385
           },
           spatialReference: { wkid: 102100 },
-          size: 256,
-          lods: [{
-            endTileCol: 19,
-            endTileRow: 34,
-            level: 3,
-            resolution: 0.03164223338587386,
-            scale: 17,
-            startTileCol: 0,
-            startTileRow: 0
-          }]
-        },
-        tileInfo2 = {
-          dpi: 96,
-          format: "jpg",
-          origin: {
-            spatialReference: "102100",
-            x: -9408368.944577875,
-            y: 4735513.9020680385
-          },
-          spatialReference: { wkid: 102100 },
-          size: 512,
-          lods: [{
-            endTileCol: 19,
-            endTileRow: 34,
-            level: 3,
-            resolution: 0.03164223338587386/2.0,
-            scale: 17,
-            startTileCol: 0,
-            startTileRow: 0
-          }]
-        };
+          size: t,
+          lods
+        }));
+
 
         var path = "urn:eagleview.com:v1:spatial-data:raster:singleframe:567307f8-1612-48bb-a938-d65374361c0a";
         var webTileLayer = new WebTileLayer({
           urlTemplate: "https://{subDomain}.pictometry.com/tiles/?i=" + path + "&s=1.0&c={col}&r={row}&p=1",
           subDomains: ["t0", "t1", "t2", "t3"],
-          tileInfo
+          tileInfo: tileInfos[6]
         });
 
 
@@ -76,9 +239,24 @@
         var mapView = new MapView({
           container: MAP_VIEW,
           map,
-          zoom: 3,
+          zoom: 6,
           center: [-84.51602935791, 39.095413208008]
         });
+
+        const watchZoom = (e, f, g, i) => {
+          if(Number.isInteger(e) && e >= 0) {
+            let webTileLayer2 = new WebTileLayer({
+              urlTemplate: "https://{subDomain}.pictometry.com/tiles/?i=" + path + "&s=1.0&c={col}&r={row}&p=1",
+              subDomains: ["t0", "t1", "t2", "t3"],
+              tileInfo: tileInfos[e]
+            });
+            tileInfos[e];
+            map.add(webTileLayer2);
+            map.remove(webTileLayer);
+            webTileLayer = webTileLayer2;
+          }
+        }
+        mapView.watch("zoom", watchZoom)
       });
     </script>
   </head>
